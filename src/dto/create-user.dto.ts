@@ -1,24 +1,20 @@
-import { IsEmail, IsNotEmpty, Length, IsOptional } from 'class-validator'
+import { IsEmail, IsNotEmpty, Length, IsOptional } from 'class-validator';
 
 export class CreateUserDto {
-
   @IsEmail()
-  email: string
+  email: string;
 
   @IsNotEmpty()
-  password: string
+  password: string;
 
-  //!
   @Length(2, 200)
   @IsNotEmpty()
-  username: string
+  username: string;
 
   @IsOptional()
   avatar: string;
 
-  //!
   @Length(2, 200)
   @IsOptional()
-  about: string
-
+  about: string;
 }

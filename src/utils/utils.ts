@@ -1,5 +1,6 @@
-import * as bcrypt from 'bcrypt';
+import { Request } from 'express';
+import { User } from '../entity/User.entity';
 
-export const hashPassword = (password: string): Promise<string> => {
-  return bcrypt.hash(password, 10);
+export interface RequestUser extends Request {
+  user: User;
 }
