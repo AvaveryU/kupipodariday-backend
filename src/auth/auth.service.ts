@@ -10,11 +10,11 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
     private hashService: HashService,
-  ) {}
+  ) { }
 
   async auth(user: User) {
     const payload = { sub: user.id };
-    return { access_token: this.jwtService.sign(payload) };
+    return { access_token: this.jwtService.sign(payload, { secret: process.env.JWT_SECRET, expiresIn: '24h' }) };
   }
 
   async validatePassword(username: string, password: string) {

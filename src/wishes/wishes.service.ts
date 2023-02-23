@@ -15,7 +15,7 @@ export class WishesService {
   constructor(
     @InjectRepository(Wish)
     private wishesRepository: Repository<Wish>,
-  ) {}
+  ) { }
 
   async create(owner: User, createWishDto: CreateWishDto): Promise<Wish> {
     delete owner.email;
@@ -116,6 +116,23 @@ export class WishesService {
         owner: true,
       },
     });
+    const name = wish.name;
+    const link = wish.link;
+    const price = wish.price;
+    const wishExist = !!(await this.findOne({
+      where: {
+        name,
+        link,
+        price,
+        owner: { id: owner.id },
+      },
+      relations: {
+        owner: true,
+      },
+    }));
+    if (!wishExist) {
+      throw new NotFoundException('Подарок уже был скопирован');
+    }
     if (!wish) {
       throw new NotFoundException();
     }

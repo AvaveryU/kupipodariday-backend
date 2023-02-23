@@ -47,11 +47,16 @@ export class UsersService {
   }
 
   async updateOne(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const { email, username } = updateUserDto;
+    const user = !!(await this.findOne({
+      where: [{ email }, { username }],
+    }));
     if (updateUserDto.password) {
       updateUserDto.password = await this.hashServise.hashPassword(
         updateUserDto.password,
       );
     }
+    if (user) throw new ConflictException('Пользователь с таким email или username мог быть уже зарегистрирован');
     await this.userRepository.update({ id }, updateUserDto);
     const updatedUser = await this.findOne({
       where: { id: +id },

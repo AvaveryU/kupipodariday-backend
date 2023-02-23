@@ -5,12 +5,12 @@ import { RequestUser } from '../utils/utils';
 import { AuthService } from './auth.service';
 import { LocalGuard } from './local.guard';
 
-@Controller('offers')
+@Controller()
 export class AuthController {
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   @UseGuards(LocalGuard)
   @Post('signin')

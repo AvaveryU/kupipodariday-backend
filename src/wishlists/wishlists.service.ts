@@ -17,7 +17,7 @@ export class WishlistsService {
     @InjectRepository(WishList)
     private wishListRepository: Repository<WishList>,
     private wishesService: WishesService,
-  ) {}
+  ) { }
 
   async create(owner: User, createWishListDto: CreateWishListDto) {
     delete owner.email;
@@ -70,7 +70,7 @@ export class WishlistsService {
     return updatedList;
   }
 
-  async getListById(id: number) {
+  async getListById(id: string) {
     const list = await this.wishListRepository.findOne({
       where: [{ id: +id }],
       relations: {
