@@ -49,7 +49,7 @@ export class UsersService {
   async updateOne(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const { email, username } = updateUserDto;
     const user = !!(await this.findOne({
-      where: [{ email }, { username }],
+      where: [{ email }, { username }, { id: Not(id) }],
     }));
     if (updateUserDto.password) {
       updateUserDto.password = await this.hashServise.hashPassword(
